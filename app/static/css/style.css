@@ -1,25 +1,39 @@
-/* Luxury DarGlobal & Wasalt Real Estate Theme */
+/* Official DarGlobal Luxury White, Silver & Champagne-Bronze Theme */
 :root {
-  --bg-primary: #0b0e14;
-  --bg-secondary: #121824;
-  --bg-card: #182030;
-  --bg-card-hover: #1e283d;
-  --gold-primary: #d4af37;
-  --gold-light: #f3e5ab;
-  --gold-dark: #aa8c2c;
-  --gold-gradient: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
-  --wasalt-green: #10b981;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --border-color: rgba(212, 175, 55, 0.2);
-  --border-light: rgba(255, 255, 255, 0.08);
+  --bg-primary: #ffffff;
+  --bg-secondary: #fbfbfa;
+  --bg-surface: #f7f6f3;
+  --bg-card: #ffffff;
+  --bg-card-hover: #faf9f6;
+  
+  /* DarGlobal Brand Colors from Website */
+  --bronze-dark: #38322b;
+  --bronze-primary: #655848;
+  --bronze-medium: #8c7355;
+  --bronze-light: #c2b4a3;
+  --champagne-accent: #9e8365;
+  --silver-accent: #8e959d;
+  --silver-light: #e8eaed;
+  --wasalt-green: #059669;
+  
+  /* Text */
+  --text-headline: #111111;
+  --text-body: #2d3139;
+  --text-muted: #6b7280;
+  --text-light-muted: #9ca3af;
+  
+  /* Borders */
+  --border-subtle: #eae7e1;
+  --border-medium: #d6cfc5;
+  --border-silver: #d1d5db;
 }
 
 body {
   background-color: var(--bg-primary);
-  color: var(--text-main);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-body);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Cinzel", "Playfair Display", Georgia, Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Custom Scrollbars */
@@ -28,91 +42,133 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: #f9f9f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.3);
+  background: rgba(140, 115, 85, 0.25);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.6);
+  background: rgba(140, 115, 85, 0.5);
 }
 
-/* Luxury Glow & Accents */
-.gold-glow {
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
-}
-
-.gold-border {
-  border-color: var(--border-color);
-}
-
-.gold-gradient-text {
-  background: linear-gradient(135deg, #f5d77f 0%, #d4af37 50%, #aa8c2c 100%);
+/* DarGlobal Silver Embossed Logo Styling */
+.dar-silver-logo {
+  font-family: "Cinzel", Georgia, serif;
+  letter-spacing: 0.18em;
+  background: linear-gradient(135deg, #1f2937 0%, #4b5563 50%, #111827 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 700;
 }
 
-.glass-panel {
-  background: rgba(18, 24, 36, 0.85);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color);
+.champagne-subhead {
+  color: var(--bronze-medium);
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-/* Markdown styling inside assistant message */
-.prose-luxury {
-  color: #e2e8f0;
-  line-height: 1.65;
+/* Glass & Card Styling */
+.luxury-header {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.luxury-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-medium);
+  box-shadow: 0 12px 24px -6px rgba(101, 88, 72, 0.08), 0 4px 8px -2px rgba(101, 88, 72, 0.04);
+}
+
+/* Markdown prose styling */
+.prose-editorial {
+  color: #24292f;
+  line-height: 1.7;
   font-size: 0.95rem;
 }
-.prose-luxury p {
+.prose-editorial p {
   margin-bottom: 0.75rem;
 }
-.prose-luxury p:last-child {
+.prose-editorial p:last-child {
   margin-bottom: 0;
 }
-.prose-luxury h1, .prose-luxury h2, .prose-luxury h3, .prose-luxury h4 {
-  color: #f3e5ab;
+.prose-editorial h1, .prose-editorial h2, .prose-editorial h3, .prose-editorial h4 {
+  color: #111111;
+  font-family: Georgia, serif;
   font-weight: 600;
+  letter-spacing: 0.02em;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
-.prose-luxury ul, .prose-luxury ol {
+.prose-editorial ul, .prose-editorial ol {
   margin-left: 1.25rem;
   margin-bottom: 0.75rem;
   list-style-type: disc;
 }
-.prose-luxury li {
+.prose-editorial li {
   margin-bottom: 0.25rem;
 }
-.prose-luxury strong {
-  color: #ffffff;
+.prose-editorial strong {
+  color: #111111;
+  font-weight: 600;
 }
-.prose-luxury a {
-  color: #d4af37;
+.prose-editorial a {
+  color: var(--bronze-primary);
   text-decoration: underline;
   text-underline-offset: 3px;
+  font-weight: 500;
   transition: color 0.2s ease;
 }
-.prose-luxury a:hover {
-  color: #f3e5ab;
+.prose-editorial a:hover {
+  color: #111111;
 }
 
 /* Property Cards */
-.property-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+.prop-card-editorial {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.25s ease;
 }
-.property-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.2);
-  border-color: rgba(212, 175, 55, 0.5);
+.prop-card-editorial:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-medium);
+  box-shadow: 0 10px 20px -5px rgba(101, 88, 72, 0.12);
 }
 
-/* Pulse animation for indicator */
-@keyframes pulse-gold {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.15); }
+/* Buttons */
+.btn-dar-primary {
+  background-color: var(--bronze-primary);
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
-.animate-pulse-gold {
-  animation: pulse-gold 2s infinite ease-in-out;
+.btn-dar-primary:hover {
+  background-color: var(--bronze-dark);
+}
+
+.btn-dar-outline {
+  background-color: transparent;
+  border: 1px solid var(--bronze-primary);
+  color: var(--bronze-dark);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.btn-dar-outline:hover {
+  background-color: var(--bg-surface);
+  border-color: #111111;
+  color: #111111;
 }
