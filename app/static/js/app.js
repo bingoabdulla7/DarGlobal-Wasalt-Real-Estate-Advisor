@@ -1,4 +1,4 @@
-// DarGlobal & Wasalt Real Estate AI Advisor — Client Script (Luxury Editorial Theme)
+// DarGlobal & Wasalt Real Estate AI Advisor — Client Script (Luxury Editorial Theme v2)
 
 document.addEventListener("DOMContentLoaded", () => {
   const messagesContainer = document.getElementById("messages-container");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Auto-resize textarea
   userInput.addEventListener("input", () => {
     userInput.style.height = "auto";
-    userInput.style.height = Math.min(userInput.scrollHeight, 140) + "px";
+    userInput.style.height = Math.min(userInput.scrollHeight, 120) + "px";
   });
 
   // Enter to send (Shift+Enter for newline)
@@ -37,10 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Prompt suggestion chips
+  // Prompt suggestion chips — robust data-prompt handler
   document.querySelectorAll(".prompt-chip").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const promptText = btn.querySelector(".text-xs, .text-sm").innerText.replace(/[""]/g, "").trim();
+    btn.addEventListener("click", function(e) {
+      e.preventDefault();
+      const promptText = this.getAttribute("data-prompt") || 
+                         this.querySelector(".prompt-query-text")?.textContent.replace(/[""]/g, "").trim();
+      if (!promptText) return;
       userInput.value = promptText;
       chatForm.dispatchEvent(new Event("submit"));
     });
@@ -54,10 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Escape HTML
+  // Escape HTML helper
   function escapeHtml(text) {
+    if (!text) return "";
     const div = document.createElement("div");
-    div.textContent = text;
+    div.textContent = String(text);
     return div.innerHTML;
   }
 
@@ -68,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const msgDiv = document.createElement("div");
     msgDiv.className = "flex items-start justify-end space-x-3";
     msgDiv.innerHTML = `
-      <div class="max-w-[85%] md:max-w-[75%] rounded-2xl rounded-tr-none px-4 py-3 bg-[#38322b] text-[#ffffff] shadow-md text-sm md:text-base leading-relaxed">
+      <div class="max-w-[85%] md:max-w-[75%] rounded-2xl rounded-tr-none px-4 py-2.5 bg-[#38322b] text-[#ffffff] shadow-md text-sm md:text-base leading-relaxed">
         ${escapeHtml(text)}
       </div>
       <div class="w-8 h-8 rounded-full bg-[#f4f2ee] border border-[#d6cfc5] flex items-center justify-center flex-none text-[#655848] text-xs">
@@ -106,62 +110,108 @@ document.addEventListener("DOMContentLoaded", () => {
     if (el) el.remove();
   }
 
-  // Render Property Card HTML (Clean Luxury Style)
+  // Curated reliable luxury architectural fallback images
+  const fallbackImages = {
+    darglobal: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80",
+    wasalt: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
+    villa: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80",
+    apartment: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80"
+  };
+
+  // Render Property Card HTML (Robust, Explicit Dimensions, Never Collapses)
   function renderPropertyCard(prop) {
     const isDG = prop.source === "DarGlobal";
     const badgeColor = isDG 
       ? "bg-[#faf8f5] text-[#8c7355] border-[#e5dfd5]" 
       : "bg-emerald-50 text-emerald-800 border-emerald-200";
     const sourceLabel = isDG ? "DarGlobal Luxury" : "Wasalt Verified";
-    const defaultImg = isDG
-      ? "https://cdn.darglobal.co.uk/TTD_exterior_02_bd7d425e3c.webp"
-      : "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80";
+    
+    let defaultImg = isDG ? fallbackImages.darglobal : fallbackImages.wasalt;
+    if (prop.project_type && prop.project_type.toLowerCase().includes("villa")) {
+      defaultImg = fallbackImages.villa;
+    }
+
     const imgUrl = prop.image_url || defaultImg;
+    const safeTitle = escapeHtml(prop.title);
+    const safeLoc = escapeHtml(prop.location || prop.region || "Prime Destination");
+    const safePrice = escapeHtml(prop.price || "Price on Application");
+    const safeType = escapeHtml(prop.project_type || "Luxury Residence");
+    const safeUrl = prop.url || "https://darglobal.co.uk";
 
     return `
-      <div class="prop-card-editorial flex flex-col h-full bg-white border border-[#eae7e1] rounded-lg shadow-sm hover:shadow-md transition">
-        <div class="relative h-36 w-full bg-[#f4f2ee] overflow-hidden">
+      <div class="prop-card-editorial bg-white border border-[#eae7e1] rounded-lg shadow-sm hover:shadow-md transition flex flex-col justify-between overflow-hidden" style="min-height: 310px; height: 100%;">
+        
+        <!-- Image Container (Explicit fixed height) -->
+        <div class="prop-card-img-wrap" style="height: 145px; min-height: 145px; max-height: 145px; width: 100%; position: relative; background-color: #f4f2ee; overflow: hidden;">
           <img 
             src="${imgUrl}" 
-            alt="${escapeHtml(prop.title)}" 
-            class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-            onerror="this.src='${defaultImg}'"
+            alt="${safeTitle}" 
+            style="width: 100%; height: 100%; object-fit: cover;"
+            onerror="this.onerror=null; this.src='${defaultImg}';"
           />
-          <div class="absolute top-2.5 left-2.5">
+          <div style="position: absolute; top: 10px; left: 10px;">
             <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded border backdrop-blur-md ${badgeColor}">
               ${sourceLabel}
             </span>
           </div>
         </div>
 
-        <div class="p-3.5 flex-1 flex flex-col justify-between space-y-2.5">
+        <!-- Content Details -->
+        <div class="p-3.5 flex-1 flex flex-col justify-between" style="gap: 10px;">
           <div>
-            <h4 class="font-serif font-bold text-xs md:text-sm text-[#111111] line-clamp-1" title="${escapeHtml(prop.title)}">
-              ${escapeHtml(prop.title)}
+            <h4 class="font-serif font-bold text-xs md:text-sm text-[#111111] line-clamp-1" title="${safeTitle}">
+              ${safeTitle}
             </h4>
-            <p class="text-[11px] text-[#6b7280] flex items-center mt-0.5">
-              <i class="fa-solid fa-location-dot text-[#8c7355] mr-1 text-[10px]"></i>
-              <span class="truncate">${escapeHtml(prop.location || "International")}</span>
+            <p class="text-[11px] text-[#6b7280] flex items-center mt-1">
+              <i class="fa-solid fa-location-dot text-[#8c7355] mr-1.5 text-[10px]"></i>
+              <span class="truncate">${safeLoc}</span>
+            </p>
+            <p class="text-[10px] text-[#9ca3af] mt-0.5">
+              ${safeType}${prop.bedrooms ? ` • ${escapeHtml(prop.bedrooms)}` : ""}
             </p>
           </div>
 
-          <div class="flex items-center justify-between text-[11px] text-[#4b5563] pt-2 border-t border-[#f0eee9]">
-            <span class="text-[#8c7355] font-semibold truncate">${escapeHtml(prop.price || "Price on Application")}</span>
-            ${prop.bedrooms ? `<span class="text-[#6b7280] flex items-center"><i class="fa-solid fa-bed mr-1 text-[10px]"></i>${prop.bedrooms}</span>` : ""}
+          <div class="pt-2 border-t border-[#f0eee9] flex items-center justify-between text-xs">
+            <span class="text-[#8c7355] font-bold truncate">${safePrice}</span>
+            ${prop.completion ? `<span class="text-[10px] text-[#9ca3af] uppercase tracking-wider">${escapeHtml(prop.completion)}</span>` : ""}
           </div>
 
-          <a 
-            href="${prop.url}" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="block text-center w-full py-2 px-2 rounded bg-[#655848] hover:bg-[#38322b] text-white text-xs font-semibold uppercase tracking-wider transition duration-200"
-          >
-            View Listing <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
-          </a>
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <a 
+              href="${safeUrl}" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="text-center py-1.5 px-2 rounded bg-[#655848] hover:bg-[#38322b] text-white text-[11px] font-semibold uppercase tracking-wider transition"
+            >
+              Listing <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[9px]"></i>
+            </a>
+            <button 
+              type="button"
+              class="btn-ask-about py-1.5 px-2 rounded border border-[#8c7355] text-[#8c7355] hover:bg-[#8c7355] hover:text-white text-[11px] font-semibold uppercase tracking-wider transition cursor-pointer" 
+              data-title="${safeTitle}"
+            >
+              Ask AI
+            </button>
+          </div>
         </div>
+
       </div>
     `;
   }
+
+  // Click handler for "Ask AI" button on property cards
+  document.addEventListener("click", (e) => {
+    const askBtn = e.target.closest(".btn-ask-about");
+    if (askBtn) {
+      const title = askBtn.getAttribute("data-title");
+      if (title) {
+        explorerModal.classList.add("hidden");
+        explorerModal.classList.remove("flex");
+        userInput.value = `Tell me more details about ${title}, including location, features, and investment highlights.`;
+        chatForm.dispatchEvent(new Event("submit"));
+      }
+    }
+  });
 
   // Append assistant message (Editorial White Luxury Card)
   function appendAssistantMessage(data) {
@@ -175,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let cardsHtml = "";
     if (data.properties && data.properties.length > 0) {
       cardsHtml = `
-        <div class="mt-5 pt-3.5 border-t border-[#eae7e1]">
+        <div class="mt-4 pt-3.5 border-t border-[#eae7e1]">
           <div class="text-[11px] font-bold uppercase tracking-widest text-[#8c7355] mb-2.5 flex items-center">
             <i class="fa-solid fa-gem mr-1.5"></i> Featured Portfolio Matches (${data.properties.length})
           </div>
@@ -190,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="w-8 h-8 rounded-full bg-[#111111] text-[#d6cfc5] flex items-center justify-center flex-none font-serif font-bold text-xs shadow-sm">
         DG
       </div>
-      <div class="max-w-[85%] md:max-w-[80%] rounded-2xl rounded-tl-none px-5 py-4 bg-white border border-[#eae7e1] text-[#24292f] shadow-sm">
+      <div class="max-w-[85%] md:max-w-[80%] rounded-2xl rounded-tl-none px-4 md:px-5 py-3.5 md:py-4 bg-white border border-[#eae7e1] text-[#24292f] shadow-sm">
         <div class="prose-editorial">
           ${formattedHtml}
         </div>
@@ -200,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="fa-solid fa-bolt text-[#8c7355] mr-1.5"></i>
             <span class="truncate">Model: ${escapeHtml(data.model_used || "OpenRouter Free")}</span>
           </span>
-          <button class="copy-btn text-[#8e959d] hover:text-[#111111] ml-2" title="Copy response">
+          <button class="copy-btn text-[#8e959d] hover:text-[#111111] ml-2 cursor-pointer" title="Copy response">
             <i class="fa-regular fa-copy"></i>
           </button>
         </div>
@@ -353,9 +403,9 @@ document.addEventListener("DOMContentLoaded", () => {
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       filterBtns.forEach((b) => {
-        b.className = "filter-btn px-3.5 py-1.5 rounded text-[#4b5563] bg-[#f4f2ee] hover:bg-[#e8e6e1] uppercase tracking-wider text-[11px]";
+        b.className = "filter-btn px-3.5 py-1.5 rounded text-[#4b5563] bg-[#f4f2ee] hover:bg-[#e8e6e1] uppercase tracking-wider text-[11px] cursor-pointer";
       });
-      btn.className = "filter-btn px-3.5 py-1.5 rounded font-semibold bg-[#655848] text-white uppercase tracking-wider text-[11px]";
+      btn.className = "filter-btn px-3.5 py-1.5 rounded font-semibold bg-[#655848] text-white uppercase tracking-wider text-[11px] cursor-pointer";
       currentFilterSource = btn.getAttribute("data-source");
       renderModalProperties();
     });
