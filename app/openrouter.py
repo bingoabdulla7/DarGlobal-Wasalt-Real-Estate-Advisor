@@ -121,11 +121,11 @@ def call_openrouter(
                             }
             except urllib.error.HTTPError as e:
                 err_text = e.read().decode("utf-8", errors="ignore")
-                logger.warning(f"Model {model} with Key #{key_idx+1} returned HTTP {e.code}: {err_text[:100]}")
+                logger.info(f"[Auto-Failover] Model {model} with Key #{key_idx+1} reached quota/limit ({e.code}). Cascading to next free model...")
                 last_error = f"HTTP {e.code}: {err_text[:80]}"
                 continue # Try next key or next model
             except Exception as e:
-                logger.warning(f"Model {model} with Key #{key_idx+1} error: {e}")
+                logger.info(f"[Auto-Failover] Model {model} with Key #{key_idx+1} retry: {e}")
                 last_error = str(e)
                 continue
 

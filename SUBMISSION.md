@@ -10,10 +10,10 @@
 ## 1. Executive Summary & Live Application URL
 
 - **GitHub Repository:** [https://github.com/bingoabdulla7/DarGlobal-Wasalt-Real-Estate-Advisor](https://github.com/bingoabdulla7/DarGlobal-Wasalt-Real-Estate-Advisor)
-- **Live Working URL:** [https://606a753812e506.app.lhr.life](https://606a753812e506.app.lhr.life)
+- **Primary Live Render URL:** [https://darglobal-wasalt-real-estate-advisor.onrender.com](https://darglobal-wasalt-real-estate-advisor.onrender.com)
+- **Container Health Check:** [https://darglobal-wasalt-real-estate-advisor.onrender.com/healthz](https://darglobal-wasalt-real-estate-advisor.onrender.com/healthz)
+- **Portfolio API Endpoint:** [https://darglobal-wasalt-real-estate-advisor.onrender.com/api/properties](https://darglobal-wasalt-real-estate-advisor.onrender.com/api/properties)
 - **Local Application URL:** `http://localhost:8000`
-- **Container Health Check:** [https://606a753812e506.app.lhr.life/healthz](https://606a753812e506.app.lhr.life/healthz)
-- **Portfolio API Endpoint:** [https://606a753812e506.app.lhr.life/api/properties](https://606a753812e506.app.lhr.life/api/properties)
 
 ---
 
@@ -54,8 +54,8 @@ Thank you for the opportunity to complete the technical assignment for the Junio
 
 I have completed the end-to-end task and deployed the live AI Chatbot solution. You can access and test the live application directly at the link below:
 
-🔗 Live Working Application URL:
-https://606a753812e506.app.lhr.life
+🔗 Live Working Application URL (Render):
+https://darglobal-wasalt-real-estate-advisor.onrender.com
 
 📦 GitHub Repository:
 https://github.com/bingoabdulla7/DarGlobal-Wasalt-Real-Estate-Advisor
