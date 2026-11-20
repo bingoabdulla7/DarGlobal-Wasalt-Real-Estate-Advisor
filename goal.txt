@@ -1,0 +1,14 @@
+Dear Candidate,
+
+Thank you for your interest in the Junior AI Engineer – Applied AI role at DarGlobal.
+
+In addition, please complete the following Technical Assignment:
+Scrape publicly available data from DarGlobal and Wasalt.
+Build an AI chatbot using the collected data.
+Use any suitable free model available through OpenRouter.
+Containerise the application using Docker.
+Deploy the solution rather than providing source code only.
+Provide a working URL so the chatbot can be tested directly.
+Please send your reply, including the requested information, completed assignment, and working URL, to careers@darglobal.co.uk by Friday, 20 Nov 2026. 
+
+Thank you, and we look forward to reviewing your submission.

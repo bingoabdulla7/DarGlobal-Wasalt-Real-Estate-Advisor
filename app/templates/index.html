@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DarGlobal & Wasalt — AI Real Estate Advisor</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Marked for Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  
+  <!-- Custom Luxury Theme -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="flex flex-col h-screen antialiased bg-[#0b0e14] text-slate-100">
+
+  <!-- TOP NAVIGATION HEADER -->
+  <header class="flex-none glass-panel border-b border-amber-500/20 px-4 md:px-8 py-3.5 z-30">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logos & Title -->
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-400 via-amber-600 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-900/40">
+            <span class="font-serif font-bold text-black text-lg tracking-wider">DG</span>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-serif font-bold tracking-widest text-base md:text-lg text-white">DARGLOBAL</span>
+              <span class="text-xs text-amber-400 font-semibold px-1.5 py-0.5 rounded border border-amber-400/40 bg-amber-950/40">LUXURY</span>
+              <span class="text-slate-500 text-sm">×</span>
+              <span class="font-bold tracking-wider text-base md:text-lg text-emerald-400">WASALT</span>
+              <span class="text-xs text-emerald-400 font-semibold px-1.5 py-0.5 rounded border border-emerald-500/40 bg-emerald-950/40">KSA</span>
+            </div>
+            <p class="text-xs text-slate-400 hidden sm:block">AI Real Estate Advisor • 81 Scraped Portfolio Listings</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Badges & Buttons -->
+      <div class="flex items-center space-x-2 md:space-x-3">
+        <!-- Live Status Pill -->
+        <div class="hidden lg:flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-300 font-medium">Free Model Router Active</span>
+        </div>
+
+        <!-- Explore Properties Modal Button -->
+        <button id="btn-open-explorer" class="px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-medium bg-slate-800/90 hover:bg-slate-700/90 text-amber-300 border border-amber-500/30 transition flex items-center space-x-1.5">
+          <i class="fa-solid fa-building-columns text-amber-400"></i>
+          <span>Portfolio Directory</span>
+        </button>
+
+        <!-- Clear Chat Button -->
+        <button id="btn-clear-chat" title="Clear conversation" class="p-2 rounded-lg text-xs md:text-sm text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CHAT CONTAINER -->
+  <main class="flex-1 overflow-y-auto relative p-4 md:p-6" id="chat-scroller">
+    <div class="max-w-4xl mx-auto space-y-6" id="messages-container">
+      
+      <!-- WELCOME HERO (Visible initially) -->
+      <div id="welcome-hero" class="text-center py-6 md:py-10 space-y-6">
+        <div class="inline-block p-4 rounded-2xl bg-gradient-to-b from-amber-500/10 to-transparent border border-amber-500/20 shadow-2xl">
+          <i class="fa-solid fa-gem text-4xl text-amber-400"></i>
+        </div>
+        
+        <div class="space-y-2">
+          <h1 class="text-2xl md:text-4xl font-serif font-bold text-white tracking-wide">
+            DarGlobal & Wasalt Real Estate Advisor
+          </h1>
+          <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+            Explore ultra-luxury international developments across London, Dubai, Spain, Oman, and Qatar alongside verified domestic residential and commercial properties in Saudi Arabia.
+          </p>
+        </div>
+
+        <!-- Feature Tags -->
+        <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-300 pt-1">
+          <span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-800"><i class="fa-solid fa-check-double text-amber-400 mr-1.5"></i>38 DarGlobal Projects</span>
+          <span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-800"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1.5"></i>40+ Wasalt KSA Listings</span>
+          <span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-800"><i class="fa-solid fa-robot text-purple-400 mr-1.5"></i>OpenRouter Free Inference</span>
+          <span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-800"><i class="fa-solid fa-language text-sky-400 mr-1.5"></i>English & Arabic</span>
+        </div>
+
+        <!-- QUICK PROMPT SUGGESTIONS -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-4 text-left">
+          
+          <button class="prompt-chip p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/40 transition group">
+            <div class="text-amber-400 text-xs font-semibold uppercase tracking-wider mb-1 flex items-center">
+              <i class="fa-solid fa-city mr-1.5"></i> Dubai Luxury
+            </div>
+            <div class="text-sm text-slate-200 group-hover:text-amber-200 font-medium">
+              "What Trump projects and branded apartments do you have in Dubai?"
+            </div>
+          </button>
+
+          <button class="prompt-chip p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/40 transition group">
+            <div class="text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1 flex items-center">
+              <i class="fa-solid fa-house-chimney mr-1.5"></i> Saudi Properties
+            </div>
+            <div class="text-sm text-slate-200 group-hover:text-emerald-200 font-medium">
+              "Find verified 4 or 5-bedroom villas in Riyadh from Wasalt."
+            </div>
+          </button>
+
+          <button class="prompt-chip p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/40 transition group">
+            <div class="text-amber-400 text-xs font-semibold uppercase tracking-wider mb-1 flex items-center">
+              <i class="fa-solid fa-car text-amber-400 mr-1.5"></i> Spain Villas
+            </div>
+            <div class="text-sm text-slate-200 group-hover:text-amber-200 font-medium">
+              "Tell me about Tierra Viva Lamborghini villas in Benahavís, Spain."
+            </div>
+          </button>
+
+          <button class="prompt-chip p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/40 transition group">
+            <div class="text-sky-400 text-xs font-semibold uppercase tracking-wider mb-1 flex items-center">
+              <i class="fa-solid fa-water mr-1.5"></i> Oman Cliffside
+            </div>
+            <div class="text-sm text-slate-200 group-hover:text-sky-200 font-medium">
+              "What is AIDA in Oman and what luxury residences are available there?"
+            </div>
+          </button>
+
+          <button class="prompt-chip p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/40 transition group">
+            <div class="text-purple-400 text-xs font-semibold uppercase tracking-wider mb-1 flex items-center">
+              <i class="fa-solid fa-scale-balanced mr-1.5"></i> Advisory
+            </div>
+            <div class="text-sm text-slate-200 group-hover:text-purple-200 font-medium">
+              "How do DarGlobal international projects compare with Wasalt properties?"
+            </div>
+          </button>
+
+          <button class="prompt-chip p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-slate-800 hover:border-amber-500/40 transition group">
+            <div class="text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-1 flex items-center">
+              <i class="fa-solid fa-language mr-1.5"></i> باللغة العربية
+            </div>
+            <div class="text-sm text-slate-200 group-hover:text-emerald-200 font-medium">
+              "ما هي الفلل والمشاريع الفاخرة المتاحة في الرياض؟"
+            </div>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- MESSAGES WILL BE INSERTED HERE DYNAMICALLY -->
+
+    </div>
+  </main>
+
+  <!-- INPUT CONTROLS FOOTER -->
+  <footer class="flex-none glass-panel border-t border-amber-500/20 px-4 md:px-8 py-3 z-30">
+    <div class="max-w-4xl mx-auto space-y-2">
+      
+      <!-- Input Box -->
+      <form id="chat-form" class="relative flex items-end rounded-2xl bg-slate-900/90 border border-amber-500/30 focus-within:border-amber-400 focus-within:ring-1 focus-within:ring-amber-400/40 transition shadow-xl p-2">
+        <textarea
+          id="user-input"
+          rows="1"
+          placeholder="Ask about luxury international developments or Saudi properties..."
+          class="w-full bg-transparent text-slate-100 placeholder-slate-500 text-sm md:text-base px-3 py-2 resize-none focus:outline-none max-h-36 overflow-y-auto"
+        ></textarea>
+        
+        <button
+          type="submit"
+          id="send-button"
+          class="flex-none p-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-semibold shadow-md transition disabled:opacity-40 disabled:cursor-not-allowed ml-2"
+        >
+          <i class="fa-solid fa-arrow-up text-sm"></i>
+        </button>
+      </form>
+
+      <!-- Model Selector & Status Bar -->
+      <div class="flex flex-wrap items-center justify-between text-xs text-slate-400 px-1 pt-1 gap-2">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-microchip text-amber-400"></i>
+          <span>Free Model:</span>
+          <select id="model-select" class="bg-slate-900 border border-slate-700 rounded px-2 py-0.5 text-xs text-amber-300 focus:outline-none focus:border-amber-500">
+            {% for m in models %}
+            <option value="{{ m }}" {% if m == default_model %}selected{% endif %}>{{ m }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div id="footer-status" class="flex items-center space-x-2 text-slate-500">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <span>OpenRouter Free Gateway • Auto-failover ready</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- PROPERTY EXPLORER MODAL -->
+  <div id="explorer-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
+    <div class="bg-slate-900 border border-amber-500/30 rounded-2xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-building-columns text-amber-400 text-lg"></i>
+          <h2 class="font-serif font-bold text-lg text-white">Portfolio Directory (81 Scraped Properties)</h2>
+        </div>
+        <button id="btn-close-explorer" class="text-slate-400 hover:text-white p-2">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="p-4 border-b border-slate-800 bg-slate-900/80 flex flex-wrap gap-2 items-center justify-between text-xs">
+        <div class="flex gap-2">
+          <button class="filter-btn px-3 py-1.5 rounded-lg bg-amber-500 text-black font-semibold" data-source="all">All (81)</button>
+          <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700" data-source="darglobal">DarGlobal (38)</button>
+          <button class="filter-btn px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700" data-source="wasalt">Wasalt KSA (40+)</button>
+        </div>
+        <input
+          id="modal-search"
+          type="text"
+          placeholder="Filter by title, city, or brand..."
+          class="bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-400 w-full sm:w-64"
+        >
+      </div>
+
+      <!-- Modal Body (Property Cards Grid) -->
+      <div class="flex-1 overflow-y-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="modal-properties-grid">
+        <!-- Cards injected via JS -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- App JavaScript Logic -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

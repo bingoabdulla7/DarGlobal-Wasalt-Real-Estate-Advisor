@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: darglobal-wasalt-ai
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: frankfurt
+    healthCheckPath: /healthz
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY_FALLBACK
+        sync: false

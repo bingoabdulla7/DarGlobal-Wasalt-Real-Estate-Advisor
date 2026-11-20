@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  darglobal-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: darglobal_wasalt_ai
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - OPENROUTER_API_KEY_FALLBACK=${OPENROUTER_API_KEY_FALLBACK}
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
